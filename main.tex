@@ -1,0 +1,497 @@
+\documentclass[%
+	%twocolumn,
+	pdftex,%              PDFTex verwenden da wir ausschliesslich ein PDF erzeugen.
+	a4paper,%             Wir verwenden A4 Papier.
+	landscape,%						Seite - Landscape
+	ngerman,
+	oneside,%             Einseitiger Druck.
+	6pt,%                 Grosse Schrift, besser geeignet f�r A4.
+	halfparskip,%         Halbe Zeile Abstand zwischen Abs�tzen.
+]{scrbook}
+
+
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{verbatim}
+\newcommand{\changefont}[3]{
+\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+\usepackage[none]{hyphenat}
+\sloppy
+
+\usepackage{graphicx}
+
+\usepackage[ngerman]{babel}
+%\usepackage{a4wide}
+\usepackage{multicol}
+%\usepackage{epsfig}
+% um eps-einzubinden
+\usepackage[landscape]{geometry}
+
+\usepackage{array}
+
+\usepackage[fleqn]{amsmath}
+%\usepackage{marvosym}
+%\uspackage{amsopn}
+
+\usepackage{color}
+\usepackage{tabularx}
+
+\usepackage{fancyvrb} %\usepackage{fancybox}
+
+\usepackage{lmodern}
+
+\usepackage{framed}
+
+\usepackage{listings}             % Include the listings-package
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\definecolor{lightgrey}{gray}{0.6}
+
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background 
+  basicstyle=\linespread{0.9}\scriptsize,
+  language=Java,
+  keywordstyle=\color{blue},       % keyword style
+  commentstyle=\color{mygreen},       % keyword style
+  stringstyle=\color{mymauve},
+  frame=single,
+  framerule=1px,
+  rulecolor=\color{spec_gray}, 
+  aboveskip=\smallskipamount, 
+  belowskip=\smallskipamount,       % 
+  tabsize=2,	                   % sets default tabsize to 2 
+}
+
+%\usepackage[retainorgcmds]{IEEEtrantools} %IEEEeqnarray
+
+\usepackage{xfrac} %f"ur sch"one 1/2 etc. Br"uche: \sfrac{1}{2}
+\usepackage{cancel} %Durchstreichen in amsmath: \cance{x} oder \cancelto{0}{x}
+
+\definecolor{spec_gray}{gray}{0.5}
+\definecolor{spec_lgray}{gray}{0.65}
+\definecolor{spec_blue}{rgb}{0,0.37,1}
+\definecolor{spec_red}{rgb}{1,0.1,0.1}
+\definecolor{spec_llgray}{gray}{0.9}
+
+\newenvironment{bspbox}{%
+  \def\FrameCommand{\fboxrule 1pt \colorbox{spec_llgray}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed} 
+ 
+% cp850 fr DOS, ansinew fr Windows statt latin1
+%\renewcommand{\familydefault}{phv}
+% setzt Helvetica (sieht aus wie Arial und sieht auch nach dvi2pdf noch gut aus)
+
+\newcommand{\bsp}[1]{\vspace{-1.5mm}\begin{bspbox}\textbf{Bsp.:}  #1\end{bspbox}\vspace{-1mm}}
+
+\newenvironment{mainbox}{%
+  \def\FrameCommand{\fboxrule 1px \fcolorbox{black}{spec_blue}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+ 
+\newenvironment{subbox}{%
+  \def\FrameCommand{\fboxrule 1px \fcolorbox{black}{spec_gray}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+
+\newenvironment{subsubbox}{%
+  \def\FrameCommand{\fboxrule 1px \fcolorbox{black}{spec_lgray}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed}
+ 
+\newenvironment{titlebox}{%
+  \def\FrameCommand{\fboxrule 1pt \fcolorbox{black}{black}}%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}}%
+ {\endMakeFramed} 
+ 
+% cp850 fr DOS, ansinew fr Windows statt latin1
+%\renewcommand{\familydefault}{phv}
+% setzt Helvetica (sieht aus wie Arial und sieht auch nach dvi2pdf noch gut aus)
+
+\newcommand{\maintopic}[1]{\setcounter{subtopicenum}{0}\setcounter{subsubtopicenum}{0}\vspace{-4px}\begin{mainbox}\textcolor{white}{\textbf{\large{\stepcounter{maintopicenum}\Roman{maintopicenum}. #1}}}\end{mainbox}\vspace{-4px}}
+
+\newcommand{\subtopic}[1]{\setcounter{subsubtopicenum}{0}\vspace{-4px}\begin{subbox}\textcolor{white}{\textbf{\stepcounter{subtopicenum}\Roman{maintopicenum}.\arabic{subtopicenum} #1}}\end{subbox}\vspace{-4px}}
+
+\newcommand{\subsubtopic}[1]{\vspace{-3px}\begin{subsubbox}\textcolor{white}{\textbf{\stepcounter{subsubtopicenum}\Roman{maintopicenum}.\arabic{subtopicenum}.\arabic{subsubtopicenum} #1}}\end{subsubbox}\vspace{-3px}}
+
+\newcommand{\titletopic}[1]{\vspace{0px}\begin{titlebox}\textcolor{red}{\textbf{#1}}\end{titlebox}\vspace{-3px}}
+
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\arcsinh}{\operatorname{arcsinh}}
+\newcommand{\arccosh}{\operatorname{arccosh}}
+\newcommand{\artanh}{\operatorname{artanh}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\divergenz}{\operatorname{div}}
+\newcommand{\rot}{\operatorname{rot}}
+\newcommand{\D}{\,\textrm{d}}
+\newcommand{\spec}{\operatorname{spec}}
+
+\renewcommand\arraystretch{1.5}
+
+
+
+\CustomVerbatimEnvironment{myverbatim}{Verbatim}{fontsize=\footnotesize,baselinestretch=0.8,numbers=none,showspaces=false,frame=single,rulecolor=\color{spec_gray}}     
+
+\newenvironment{tight-itemize}
+{ \begin{itemize}
+    \setlength{\itemsep}{0px}
+    \setlength{\parskip}{0px}
+    \setlength{\parsep}{0px}  }
+{ \end{itemize}                  } 
+
+\oddsidemargin-2.2cm
+\evensidemargin-2.2cm
+\textwidth29cm
+\headheight0cm
+\topmargin-2.8cm
+\textheight20cm
+\parskip0cm
+\parindent0cm
+
+\parskip-0.5mm
+
+
+\pagestyle{empty}
+%\pagenumbering{arabic}
+
+\begin{document}\changefont{cmss}{m}{n}
+
+\newcounter{maintopicenum}
+\newcounter{subtopicenum}
+\newcounter{subsubtopicenum}
+
+
+\begin{multicols}{4}[][-5pt]
+
+\setlength{\abovedisplayshortskip}{-0px}
+\setlength{\abovedisplayskip}{-0px}
+\setlength{\belowdisplayskip}{-0px} %Mathmode-Commands zum Platz sparen
+\setlength{\arraycolsep}{2mm}
+
+\setlength{\topsep}{4px} %Platz sparen bei Titeln
+%\setlength{\parsep}{-20mm}
+
+\raggedbottom %whitespace am Ende der letzten Seite statt verteilen des Inhalts auf ben"otigte Seiten
+
+
+
+\titletopic{ParProg ZF \qquad \today
+\\ Styp \\
+HSR FS16 \qquad Prof. Markus Stolze \& al.}
+%\qquad \LaTeX{} Design Martin Stypinski
+\maintopic{Begriffe}
+\begin{tight-itemize}
+	\item{\textbf{Prozess} - Schwergewichtsprozess \\
+	Parallel laufende Programm-Instanz im System, Eigener Adressraum pro Prozess}
+	\item{\textbf{Thread} - Leichtgewichtsprozess \\
+	Parallele Ablaufsequenz innerhalb eines Programms, Teilen gleichen Adressraum im Prozess}
+	\item{\textbf{Kontextwechsel: Synchron}	Warten auf Bedingung}
+	\item{\textbf{Kontextwechsel: Asynchron} Nach gewisser Zeit soll der Thread den Prozessor freigeben, Verhindere, dass ein Thread dauerhaft Prozessor belegt}
+	\item{\textbf{Multi-Tasking: Kooperativ} Scheduler kann den Thread nicht unterbrechen, Kontextwechsel wird asynchron initiiert.}
+	\item{\textbf{Multi-Tasking: Preemptiv}
+	Scheduler kann per Timer-Interrupt unterbrechen (asynchron), Time-Sliced Scheduling.}
+\end{tight-itemize}
+\maintopic{User Centric Design}
+\begin{tight-itemize}
+	\item{einen iterativen Prozess durchlaufen}
+	\item{in dem die User einbezogen werden}
+	\item{Programmierung nach der Konzeption!}
+\end{tight-itemize}
+\subtopic{Phasen}
+\begin{tight-itemize}
+	\item{\textbf{Ph1: Analyse} \\
+	Einarbeitung, UI Expert Review, Beobachtungen, Interviews, Ist/Soll}
+	\item{\textbf{Ph2: Grobkonzeption} \\
+	Grobkonzeption, Visualisierung, Prototyp - \textbf{Iterationen}}
+	\item{\textbf{Ph3: Grunddesin} \\
+	Entwicklung ca. 3 Screens mit grafischem Design}
+	\item{\textbf{Ph4: Detailkonzeption} \\
+	Interaktiver Prototyp, Detailkonzeption, Usability Tests}
+	\item{\textbf{Ph5: Detaildesign \& Dokumentation} \\
+	Dokumentation, Detail Desin, Icons, Styleguide}			
+\end{tight-itemize}
+\subtopic{Vorteile}
+\begin{tight-itemize}
+	\item{\textbf{kürzere Entwicklungszeiten}}
+	\item{\textbf{geringere Betriebskosten} - weniger Komplexität bei gleichem Funktionsumfang}
+	\item{\textbf{niedrigere Supportkosten} - weniger Support Anfragen}
+	\item{\textbf{verlängerter Lebenszyklus} - weniger Postrelease Änderungen}
+	\item{\textbf{höhere Akzeptanz, Produktivität und Rückkehrquoten der User} - weniger Abbruchquoten bei Transaktionen}
+	\item{\textbf{mehr Kundenzufriedenheit} - customer experience}
+\end{tight-itemize}
+\maintopic{Mobile}
+\begin{tight-itemize}
+	\item{30\% der Arbeitnehmer sind mobil}
+\end{tight-itemize}
+\subtopic{Mobile Bedürfnisse}
+\begin{tight-itemize}
+	\item{\textbf{Bedürfnisse}
+	\begin{tight-itemize}
+	 	\item{\textbf{Microtasking:} Repeating tasks - BEISPIEL?!}
+	 	\item{\textbf{I am local:} Finden, Mapdienste}
+	 	\item{\textbf{I am bored:} Games, Youtube,...}
+	\end{tight-itemize}
+	}
+	\item{\textbf{Moments}
+		\begin{tight-itemize}
+		 	\item{\textbf{I-want-to-know:} Wikipedia, Google, etc.}
+		 	\item{\textbf{I-want-to-go:} NearMe Search, local business, food,...}
+		 	\item{\textbf{I-want-to-do:} Inspration, HowTo, suppporting Vision,...}
+		 	\item{\textbf{I-want-to-buy:} Online Shopping, growing convergence on mobile!}
+		 	\item{\textbf{Stolze:} Abgedeckt durch 4 Moments}
+		\end{tight-itemize}
+		}
+\end{tight-itemize}
+\subtopic{Einschränkungen}
+		\begin{tight-itemize}
+		 	\item{\textbf{Privacy}}
+		 	\item{\textbf{Stress, Ablenkung, Zeitnot} }
+		 	\item{\textbf{Kein Strom, Akku leer} }
+		 	\item{\textbf{Umgebungsfaktoren} hell, dunkel, laut, leise, kalt, heiss, nass}
+		\end{tight-itemize}
+\maintopic{Senioren}
+		\begin{tight-itemize}
+		 	\item{\textbf{Niedrigere Akzeptanz als bei jüngerer Generation}}
+		 	\item{\textbf{Verminderte Sehkraft, Farbwiedergabe, Kontraste, Helligkeit} }
+		 	\item{\textbf{Schlechtere Akustische Wahrnehmung} }
+		 	\item{\textbf{Kürzere Konzentrationsspanne, Aufmerksamkeit} }
+		 	\item{\textbf{Motorische Einschränkung}
+		\end{tight-itemize}
+\maintopic{Jugendliche \& Kinder}
+		\begin{tight-itemize}
+			\item{Bedürfnisse}
+			\item{Einschränkungen}
+			\item{TBD!}
+		\end{tight-itemize}
+\maintopic{Büro-Anwendungen \& Bedürfnisse}
+		\begin{tight-itemize}
+			\item{Bedürfnisse}
+			\item{Einschränkungen}
+			\item{TBD!}
+		\end{tight-itemize}
+\maintopic{
+	
+\begin{verbatim}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{verbatim}
+\end{multicols}
+
+\end{document}
